@@ -1,0 +1,19 @@
+{
+  "name": "radionet-streamurl",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node main.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "get-urls": "^9.2.0",
+    "html2json": "^1.0.2",
+    "xpath-html": "^1.0.2"
+  }
+}

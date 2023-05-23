@@ -1,0 +1,7 @@
+[
+    {
+        "version": "1.3.2",
+        "headline": "✅ Fix for YouTube & Spotify Modules",
+        "text": "With v1.3.2 <@801508458536370286> got **YT & Spotify modules** re-enabled. Major API erros should be fixed by now. Again we're very sorry for the inconvenience. 😇 \n\n In addition, **Radio module** got also fixed. Feel free to try it out with: \n```javascript\n.rs <radio-search>\n.rp <radio-station-name>\n```"
+    }
+]

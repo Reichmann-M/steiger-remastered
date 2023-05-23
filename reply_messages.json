@@ -1,0 +1,36 @@
+{
+    "warnings": {
+        "cooldown": {
+            "first": "Bitte warte weitere",
+            "second": "Sekunden bevor du den",
+            "third": "Command wieder ausführst."
+        },
+        "userInput": {
+            "no_command": "Keinen passenden Command dafür gefunden." 
+        },
+        "playingEvent": {
+            "no_voice_channel": "Du musst schon in einem Sprachkanal sein.",
+            "wrong_voice_channel": "Du bist nicht im selben Sprachkanal wie ich.",
+            "no_arguments": {
+                "first": "Keine Argumente übergeben. Beispiel:",
+                "second": "play Nik Kershaw The Riddle"
+            },
+            "no_connection_permission": "Ich kann nicht dem Sprachkanal beitreten, da mir die Berechtigungen fehlen.",
+            "no_speaking_permission": "Ich kann nicht in diesem Sprachkanal sprechen, da mir die Berechtigungen fehlen.",
+            "wrong_play_query": "Falsche Abspielanfrage."
+        },
+        "youtube": {
+            "wrong_link": "Falscher YouTube-Link"
+        }
+    },
+    "errors": {
+        "general_command_execution_error": "Es gab einen Fehler, diesen Command auszuführen :/"
+    },
+    "neutral": {
+        "bot_moved": {
+            "first": "Ich wurde von**",
+            "second": "**nach**",
+            "third": "**verschoben. Ich habe meine VoiceChannel-Info angepasst."
+        }
+    }
+}
