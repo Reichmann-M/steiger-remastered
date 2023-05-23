@@ -176,13 +176,18 @@ module.exports = {
                 artists.push(artist.name)
                 artists_urls.push(artist.external_urls.spotify)
             });
+
+            var features = Array.from(artists)
+            features.shift()
+
             tempItem = {
                 type: 'SpotifyItem',
                 title: trackRes.name,
                 artists: artists,
                 duration: Math.round(trackRes.duration_ms / 1000),
                 author: message.author.id,
-                failedTimes: 0
+                failedTimes: 0,
+                features: features
             }
 
             await MasterHandlerJS.handleSingleTrack(message.guild, tempItem, isPlayNext)

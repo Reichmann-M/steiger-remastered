@@ -79,7 +79,7 @@ const play = module.exports = async (message) => {
     }
 
 
-    console.log(`[🎩${message.client.bot_config_number}]✅ Playing ${discord_server.queue[0].title} (${discord_server.queue[0].playLink}) to voicechannel ${discord_server.usedVoiceChannel.name} (${discord_server.usedVoiceChannel.id})`)
+    console.log(`[🎩${message.client.bot_config_number}]✅ Playing ${discord_server.queue[0].title} (${discord_server.queue[0].playLink}) to voicechannel ${discord_server.usedVoiceChannel.name} (${discord_server.usedVoiceChannel.id}). Features: ${discord_server.queue[0].features}`)
     discord_server.connection = await discord_server.usedVoiceChannel.join()
     
     // Bot selfdeafens and serverdeafens itself
