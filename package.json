@@ -1,0 +1,56 @@
+{
+  "name": "steiger-remastered",
+  "version": "1.4.1",
+  "description": "Remastered Steiger Music Bot for Discord",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js",
+    "dev_zero": "echo [] > .\\cache\\guilds.json && node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Reichmann-M/steiger-remastered.git"
+  },
+  "keywords": [
+    "discord",
+    "discord.js",
+    "bot",
+    "music"
+  ],
+  "author": "Reichmann-M",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Reichmann-M/steiger-remastered/issues"
+  },
+  "homepage": "https://github.com/Reichmann-M/steiger-remastered#readme",
+  "dependencies": {
+    "@discordjs/opus": "^0.3.3",
+    "bluebird": "^3.7.2",
+    "cheerio": "^1.0.0-rc.6",
+    "discord-player": "^3.2.1",
+    "discord-ytdl-core": "^5.0.0",
+    "discord.js": "git+https://github.com/discordjs/discord.js.git#c4c817116f868cedb4ec20bcbf90b9b3d382621e",
+    "dotenv": "^8.2.0",
+    "ffmpeg-static": "^4.2.7",
+    "get-urls": "^10.0.0",
+    "he": "^1.2.0",
+    "html2json": "^1.0.2",
+    "node-fetch": "^2.6.1",
+    "node-ipinfo": "^2.1.0",
+    "node-youtube-music": "^0.2.0",
+    "random-number-csprng": "^1.0.2",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6",
+    "scrape-youtube": "^2.0.7",
+    "soundcloud-downloader": "^0.2.3",
+    "soundcloud-scraper": "^4.0.1",
+    "spotify-web-api-node": "^5.0.0",
+    "twitch-m3u8": "^1.1.4",
+    "util": "^0.12.3",
+    "vid_data": "^1.0.0",
+    "youtube-sr": "^2.0.5",
+    "ytdl-core": "^4.11.0",
+    "ytdl-core-discord": "^1.2.5",
+    "ytt": "^2.1.2"
+  }
+}
