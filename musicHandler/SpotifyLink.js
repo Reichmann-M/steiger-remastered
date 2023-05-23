@@ -59,9 +59,10 @@ module.exports = {
                 });
 
                 const duration = Math.round(item.track.duration_ms / 1000);
+                const type = 'SpotifyItem';
 
                 tempItems.push({
-                    type: 'SpotifyItem',
+                    type: type,
                     title: item.track.name,
                     artists: artists,
                     duration: duration,
@@ -88,9 +89,10 @@ module.exports = {
                             });
 
                             const duration = Math.round(item.track.duration_ms / 1000);
+                            const type = 'SpotifyItem';
 
                             tempItems.push({
-                                type: 'SpotifyItem',
+                                type: type,
                                 title: item.track.name,
                                 artists: artists,
                                 duration: duration,
@@ -143,9 +145,10 @@ module.exports = {
                 });
 
                 const duration = Math.round(item.duration_ms / 1000);
+                const type = 'SpotifyItem';
 
                 tempItems.push({
-                    type: 'SpotifyItem',
+                    type: type,
                     title: item.name,
                     artists: artists,
                     duration: duration,
@@ -189,10 +192,11 @@ module.exports = {
             var features = Array.from(artists)
             if (features.length > 0) features.shift()
 
-            const duration = Math.round(trackRes.duration_ms / 1000):
+            const duration = Math.round(trackRes.duration_ms / 1000);
+            const type = 'SpotifyItem';
 
             tempItem = {
-                type: 'SpotifyItem',
+                type: type,
                 title: trackRes.name,
                 artists: artists,
                 duration: duration,
