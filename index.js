@@ -1,7 +1,7 @@
 var bot_config_number = process.env.number
 if (bot_config_number == undefined) bot_config_number = 0;
 const discord = require('discord.js')
-const client = new discord.Client({
+const bot = new discord.Client({
   disableMentions: "everyone"
 })
 const {
@@ -18,21 +18,21 @@ const {
 const fs = require('fs')
 const util = require('util')
 require('dotenv').config()
-client.reply_messages = JSON.parse(fs.readFileSync('reply_messages.json'))
+bot.reply_messages = JSON.parse(fs.readFileSync('reply_messages.json'))
 
 /*
     Client Setup
 */
 
-client.login(TOKEN[bot_config_number])
-client.bot_config_number = bot_config_number;
-client.commands = new discord.Collection();
-client.prefix = PREFIX[bot_config_number];
-client.color = COLOR[bot_config_number];
-client.ownerID = OWNERID;
-client.SERVICE_LOGO_LINKS = SERVICE_LOGO_LINKS
-client.player = new Player(client)
-client.version = JSON.parse(fs.readFileSync('package.json')).version
+bot.login(TOKEN[bot_config_number])
+bot.bot_config_number = bot_config_number;
+bot.commands = new discord.Collection();
+bot.prefix = PREFIX[bot_config_number];
+bot.color = COLOR[bot_config_number];
+bot.ownerID = OWNERID;
+bot.SERVICE_LOGO_LINKS = SERVICE_LOGO_LINKS
+bot.player = new Player(bot)
+bot.version = JSON.parse(fs.readFileSync('package.json')).version
 
 const cooldowns = new discord.Collection();
 
@@ -45,7 +45,7 @@ try {
   const commandFileNames = fs.readdirSync('./commands').filter(files => files.endsWith('.js'))
   for (const fileName of commandFileNames) {
     const command = require(`./commands/${fileName}`)
-    client.commands.set(command.name.toLowerCase(), command)
+    bot.commands.set(command.name.toLowerCase(), command)
   }
   console.log(`[🎩${bot_config_number}]✅ Loading Commands Successful`)
 } catch (error) {
@@ -58,10 +58,10 @@ try {
     Client Event Listeners
 */
 
-client.on("ready", async () => {
-  console.log(`[🎩${bot_config_number}]✅ Logged in as ${client.user.username}`)
-  client.user
-    .setActivity(`${client.prefix}help`, {
+bot.on("ready", async () => {
+  console.log(`[🎩${bot_config_number}]✅ Logged in as ${bot.user.username}`)
+  bot.user
+    .setActivity(`${bot.prefix}help`, {
       type: "LISTENING"
     })
 
@@ -71,8 +71,8 @@ client.on("ready", async () => {
 
   const guildsJSON = JSON.parse(fs.readFileSync("./cache/guilds.json"))
   const releaseChangesJSON = JSON.parse(fs.readFileSync("./cache/releaseChanges.json"))
-  const botOwner = await client.users.fetch(client.ownerID)
-  client.guilds.cache.forEach(guild => {
+  const botOwner = await bot.users.fetch(bot.ownerID)
+  bot.guilds.cache.forEach(guild => {
     resetGuildAttributes(guild)
     guild.me.setNickname("");
 
@@ -83,7 +83,7 @@ client.on("ready", async () => {
           found = true;
           let foundSRC = false;
           gJson.saidReleaseChanges.forEach(sRC => {
-            if (sRC == client.version) {
+            if (sRC == bot.version) {
               foundSRC = true;
             }
           });
@@ -107,7 +107,7 @@ client.on("ready", async () => {
             //     icon_url: botOwner.displayAvatarURL()
             //   }
             // }).setTimestamp())
-            gJson.saidReleaseChanges.push(client.version)
+            gJson.saidReleaseChanges.push(bot.version)
           }
 
         }
@@ -135,21 +135,21 @@ client.on("ready", async () => {
 // client.on("warn", (info) => console.log(info));
 // client.on("error", console.error);
 
-client.on("message", async (message) => {
+bot.on("message", async (message) => {
   if (message.author.bot) return;
   if (!message.guild) return;
 
-  if (message.content.substring(0, client.prefix.length) != client.prefix) return;
+  if (message.content.substring(0, bot.prefix.length) != bot.prefix) return;
   console.log(`[🎩${bot_config_number}]➡️ User command: |${message}| by user ${message.author.username} (${message.author.id})`)
-  message.content = message.content.substring(client.prefix.length)
+  message.content = message.content.substring(bot.prefix.length)
 
   message.guild.usedTextChannel = message.channel;
 
   const args = message.content.split(' ')
   const commandName = args.shift().toLowerCase();
 
-  const command = client.commands.get(commandName) || client.commands.find((cmd) => cmd.aliases && cmd.aliases.includes(commandName))
-  if (!command) return message.reply(client.reply_messages.warnings.userInput.no_command);
+  const command = bot.commands.get(commandName) || bot.commands.find((cmd) => cmd.aliases && cmd.aliases.includes(commandName))
+  if (!command) return message.reply(bot.reply_messages.warnings.userInput.no_command);
 
   if (!cooldowns.has(command.name)) {
     cooldowns.set(command.name, new discord.Collection());
@@ -166,7 +166,7 @@ client.on("message", async (message) => {
       const timeLeft = (expirationTime - now) / 1000;
       console.log(`[🎩${bot_config_number}]❗ Command |${message}| too early`)
       return message.reply(
-        `${client.reply_messages.warnings.cooldown.first} ${timeLeft.toFixed(1)} ${client.reply_messages.warnings.cooldown.second} \`${command.name}\` ${client.reply_messages.warnings.cooldown.third}`
+        `${bot.reply_messages.warnings.cooldown.first} ${timeLeft.toFixed(1)} ${bot.reply_messages.warnings.cooldown.second} \`${command.name}\` ${bot.reply_messages.warnings.cooldown.third}`
       );
     }
   }
@@ -187,11 +187,11 @@ client.on("message", async (message) => {
     command.execute(message, args);
   } catch (error) {
     console.error(error);
-    message.reply(client.reply_messages.errors.general_command_execution_error).catch(console.error);
+    message.reply(bot.reply_messages.errors.general_command_execution_error).catch(console.error);
   }
 })
 
-client.on("guildCreate", (guild) => {
+bot.on("guildCreate", (guild) => {
   resetGuildAttributes(guild)
   guild.me.setNickname("");
 
@@ -215,14 +215,14 @@ client.on("guildCreate", (guild) => {
   console.log(`[🎩${bot_config_number}]✅ Bot successfully added to new guild: ${guild.name} (${guild.id})`)
 })
 
-client.on("voiceStateUpdate", async (oldState, newState) => {
+bot.on("voiceStateUpdate", async (oldState, newState) => {
   // Bot itself
-  if (oldState.member.id == client.user.id) {
+  if (oldState.member.id == bot.user.id) {
     // Bot has been moved
     if (oldState.channel != null && newState.channel != null && oldState.channel != newState.channel) {
       newState.guild.usedTextChannel.send(new discord.MessageEmbed({
-        color: client.color,
-        description: `${client.reply_messages.neutral.bot_moved.first} ${oldState.channel.name} ${client.reply_messages.neutral.bot_moved.second} ${newState.channel.name} ${client.reply_messages.neutral.bot_moved.third}`
+        color: bot.color,
+        description: `${bot.reply_messages.neutral.bot_moved.first} ${oldState.channel.name} ${bot.reply_messages.neutral.bot_moved.second} ${newState.channel.name} ${bot.reply_messages.neutral.bot_moved.third}`
       }))
       newState.guild.usedVoiceChannel = newState.channel;
       console.log(`[🎩${bot_config_number}]✅ Bot was moved from channel ${oldState.channel.name} to ${newState.channel.name}`)
@@ -237,7 +237,7 @@ client.on("voiceStateUpdate", async (oldState, newState) => {
       }
       if (oldState.guild.usedTextChannel != null) {
         const leavingMessageJS = require('./util/leavingMessage.js')
-        await leavingMessageJS.send(client, oldState.guild.usedTextChannel)
+        await leavingMessageJS.send(bot, oldState.guild.usedTextChannel)
       }
       resetGuildAttributes(oldState.guild)
       oldState.guild.me.setNickname("");
@@ -304,7 +304,7 @@ function resetGuildAttributes(guild) {
   guild.playingMessage = null;
   guild.collector = null;
   guild.volume = 100;
-  client.spotify = {
+  bot.spotify = {
     token: null,
     expirationTime: null
   }
