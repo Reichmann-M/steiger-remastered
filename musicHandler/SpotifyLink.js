@@ -178,7 +178,7 @@ module.exports = {
             });
 
             var features = Array.from(artists)
-            features.shift()
+            if (features.length > 0) features.shift()
 
             tempItem = {
                 type: 'SpotifyItem',
