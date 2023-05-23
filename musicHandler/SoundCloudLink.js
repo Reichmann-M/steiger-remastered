@@ -34,8 +34,8 @@ module.exports = {
             message.reply(titleAddedEmbed)
 
 
-            const PLAYTRACK = require('../musicHandler/PLAYTRACK')
-            return PLAYTRACK(message)
+            const PLAYBACK = require('../musicHandler/PLAYBACK')
+            return PLAYBACK(message)
         } catch (err) {
             try {
                 const artistName = soundcloudLink.substring(soundcloudLink.lastIndexOf('/')+1)
@@ -69,8 +69,8 @@ module.exports = {
                 })
                 message.reply(titlesAddedEmbed)
 
-                const PLAYTRACK = require('../musicHandler/PLAYTRACK')
-                return PLAYTRACK(message)
+                const PLAYBACK = require('../musicHandler/PLAYBACK')
+                return PLAYBACK(message)
 
             } catch (error) {
                 console.log(error)

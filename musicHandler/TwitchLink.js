@@ -43,8 +43,8 @@ module.exports = {
                 failedTimes: 0
             }, isPlayNext)
 
-            const PLAYTRACK = require('../musicHandler/PLAYTRACK')
-            return PLAYTRACK(message)
+            const PLAYBACK = require('../musicHandler/PLAYBACK')
+            return PLAYBACK(message)
         } catch (error) {
             message.reply('Twitch-Link konnte nicht abgespielt werden.')
         }

@@ -119,8 +119,8 @@ module.exports = {
             })
             message.reply(titlesAddedEmbed)
 
-            const PLAYTRACK = require('../musicHandler/PLAYTRACK')
-            return PLAYTRACK(message)
+            const PLAYBACK = require('../musicHandler/PLAYBACK')
+            return PLAYBACK(message)
 
         }
         // Albums
@@ -160,8 +160,8 @@ module.exports = {
             })
             message.reply(titlesAddedEmbed)
 
-            const PLAYTRACK = require('../musicHandler/PLAYTRACK')
-            return PLAYTRACK(message)
+            const PLAYBACK = require('../musicHandler/PLAYBACK')
+            return PLAYBACK(message)
         }
         // Tracks
         else if (spotifyLink.includes('.com/track/')) {
@@ -200,8 +200,8 @@ module.exports = {
             message.reply(titlesAddedEmbed)
 
 
-            const PLAYTRACK = require('../musicHandler/PLAYTRACK')
-            return PLAYTRACK(message)
+            const PLAYBACK = require('../musicHandler/PLAYBACK')
+            return PLAYBACK(message)
         }
         // error
         else {

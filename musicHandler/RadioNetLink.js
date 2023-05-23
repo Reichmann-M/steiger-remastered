@@ -27,7 +27,7 @@ module.exports = {
 
         await MasterHandlerJS.sendSingleTrackAddedEmbed(message, stationInfo.station_name, radioLink)
 
-        const PLAYTRACK = require('../musicHandler/PLAYTRACK')
-        return PLAYTRACK(message)
+        const PLAYBACK = require('../musicHandler/PLAYBACK')
+        return PLAYBACK(message)
     }
 }

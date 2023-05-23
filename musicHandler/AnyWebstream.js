@@ -23,7 +23,7 @@ module.exports = {
 
         await MasterHandlerJS.sendSingleTrackAddedEmbed(message, streamLink, streamLink)
 
-        const PLAYTRACK = require('../musicHandler/PLAYTRACK')
-        return PLAYTRACK(message)
+        const PLAYBACK = require('../musicHandler/PLAYBACK')
+        return PLAYBACK(message)
     }
 }

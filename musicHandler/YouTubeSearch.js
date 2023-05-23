@@ -56,8 +56,8 @@ module.exports = {
         
         await MasterHandlerJS.sendSingleTrackAddedEmbed(message, ytResults.videos[0].title, ytResults.videos[0].link)
 
-        const PLAYTRACK = require('../musicHandler/PLAYTRACK')
-        return PLAYTRACK(message)
+        const PLAYBACK = require('../musicHandler/PLAYBACK')
+        return PLAYBACK(message)
         
     }
 }

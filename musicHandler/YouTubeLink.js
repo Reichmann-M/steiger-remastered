@@ -64,8 +64,8 @@ module.exports = {
                 thumbnail: {url: message.client.SERVICE_LOGO_LINKS.youtube}
             }))
 
-            const PLAYTRACK = require('../musicHandler/PLAYTRACK')
-            return PLAYTRACK(message)
+            const PLAYBACK = require('../musicHandler/PLAYBACK')
+            return PLAYBACK(message)
         } else {
             if (youtubeLink.includes('/channel/') || youtubeLink.includes('/user/') || youtubeLink.includes('/c/') || (youtubeLink.includes('/watch?v=') == false && youtubeLink.includes('.be/') == false && youtubeLink.includes('/shorts/') == false)) {
                 // YouTube Channel
@@ -134,8 +134,8 @@ module.exports = {
                     await MasterHandlerJS.sendSingleTrackAddedEmbed(message, itemInfo.videoDetails.title, `https://www.youtube.com/watch?v=${itemInfo.videoDetails.videoId}`)
 
 
-                    const PLAYTRACK = require('../musicHandler/PLAYTRACK')
-                    return PLAYTRACK(message)
+                    const PLAYBACK = require('../musicHandler/PLAYBACK')
+                    return PLAYBACK(message)
 
                 } catch (error) {
                     // console.log(error)

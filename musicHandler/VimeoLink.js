@@ -33,8 +33,8 @@ module.exports = {
 
         await MasterHandlerJS.sendSingleTrackAddedEmbed(message, vimeoLink, vimeoLink)
 
-        const PLAYTRACK = require('../musicHandler/PLAYTRACK')
-        return PLAYTRACK(message)
+        const PLAYBACK = require('../musicHandler/PLAYBACK')
+        return PLAYBACK(message)
 
     }
 }
