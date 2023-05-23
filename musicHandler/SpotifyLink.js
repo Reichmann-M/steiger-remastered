@@ -57,11 +57,14 @@ module.exports = {
                 item.track.artists.forEach(artist => {
                     artists.push(artist.name)
                 });
+
+                const duration = Math.round(item.track.duration_ms / 1000);
+
                 tempItems.push({
                     type: 'SpotifyItem',
                     title: item.track.name,
                     artists: artists,
-                    duration: Math.round(item.track.duration_ms / 1000),
+                    duration: duration,
                     author: message.author.id,
                     failedTimes: 0
                 })
@@ -83,11 +86,14 @@ module.exports = {
                             item.track.artists.forEach(artist => {
                                 artists.push(artist.name)
                             });
+
+                            const duration = Math.round(item.track.duration_ms / 1000);
+
                             tempItems.push({
                                 type: 'SpotifyItem',
                                 title: item.track.name,
                                 artists: artists,
-                                duration: Math.round(item.track.duration_ms / 1000),
+                                duration: duration,
                                 author: message.author.id,
                                 failedTimes: 0
                             })
@@ -135,11 +141,14 @@ module.exports = {
                 item.artists.forEach(artist => {
                     artists.push(artist.name)
                 });
+
+                const duration = Math.round(item.duration_ms / 1000);
+
                 tempItems.push({
                     type: 'SpotifyItem',
                     title: item.name,
                     artists: artists,
-                    duration: Math.round(item.duration_ms / 1000),
+                    duration: duration,
                     author: message.author.id,
                     failedTimes: 0
                 })
@@ -180,11 +189,13 @@ module.exports = {
             var features = Array.from(artists)
             if (features.length > 0) features.shift()
 
+            const duration = Math.round(trackRes.duration_ms / 1000):
+
             tempItem = {
                 type: 'SpotifyItem',
                 title: trackRes.name,
                 artists: artists,
-                duration: Math.round(trackRes.duration_ms / 1000),
+                duration: duration,
                 author: message.author.id,
                 failedTimes: 0,
                 features: features
