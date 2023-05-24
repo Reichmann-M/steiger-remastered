@@ -13,7 +13,7 @@ const {
   COLOR,
   OWNERID,
   SERVICE_LOGO_LINKS
-} = require("./util/SteigerUtil");
+} = require("./util/Util");
 
 const fs = require('fs')
 const util = require('util')
