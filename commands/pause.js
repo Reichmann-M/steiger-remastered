@@ -14,7 +14,7 @@ module.exports = {
             }
             message.guild.nowPlaying = false
             message.react("⏸️")
-            message.guild.dispatcher.pause(true)
+            message.guild.dispatcher.pause()
             message.guild.me.setNickname(`⏸️ ${message.client.user.username}`);
             
             if (updatePlayingMessage) {

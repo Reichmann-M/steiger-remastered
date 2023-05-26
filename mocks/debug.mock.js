@@ -36,3 +36,10 @@ module.exports.mockMessageByBotOwner = () => {
     message.client.ownerID = randomUserID;
     return message
 }
+
+module.exports.mockMessageByNotOwner = () => {
+    const message = {...messageRaw}
+    message.author.id = '6549387435047263894';
+    message.client.ownerID = '1105840092242784266';
+    return message
+}

@@ -22,8 +22,8 @@ const messageRaw = {
         },
         dispatcher: {
             paused: undefined,
-            resume() {this.paused = false},
             pause() {this.paused = true},
+            resume() {this.paused = false},
         },
     },
     member: {
@@ -52,11 +52,11 @@ const messageRaw = {
     react: function (reactMessage) { console.log(`Sending mock react message: ${reactMessage}`) }
 }
 
-module.exports.mockMessageWithPlaying = () => {
+module.exports.mockMessageWithPaused = () => {
     const message = {...messageRaw}
     message.author.id = this.generateRandomNumberString(18);
-    message.guild.nowPlaying = true;
-    message.guild.dispatcher.paused = false;
+    message.guild.nowPlaying = false;
+    message.guild.dispatcher.paused = true;
     const randomVoiceChannelID = this.generateRandomNumberString(19)
     message.guild.me.voice.channel = randomVoiceChannelID;
     message.member.voice.channel = randomVoiceChannelID;
@@ -66,18 +66,18 @@ module.exports.mockMessageWithPlaying = () => {
 module.exports.mockMessageWithUserNotInSameVoiceChannel = () => {
     const message = {...messageRaw}
     message.author.id = this.generateRandomNumberString(18);
-    message.guild.nowPlaying = true;
-    message.guild.dispatcher.paused = false;
+    message.guild.nowPlaying = false;
+    message.guild.dispatcher.paused = true;
     message.guild.me.voice.channel = '6549387435047263894';
     message.member.voice.channel = '1105840092242784266';
     return message;
 }
 
-module.exports.mockMessageWithNotPlaying = () => {
+module.exports.mockMessageWithAlreadyPlaying = () => {
     const message = {...messageRaw}
     message.author.id = this.generateRandomNumberString(18);
-    message.guild.nowPlaying = false;
-    message.guild.dispatcher.paused = null;
+    message.guild.nowPlaying = true;
+    message.guild.dispatcher.paused = false;
     const randomVoiceChannelID = this.generateRandomNumberString(19)
     message.guild.me.voice.channel = randomVoiceChannelID;
     message.member.voice.channel = randomVoiceChannelID;
