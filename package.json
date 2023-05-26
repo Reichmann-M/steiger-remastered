@@ -4,7 +4,8 @@
   "description": "Remastered Steiger Music Bot for Discord",
   "main": "index.js",
   "scripts": {
-    "test": "node index.js",
+    "start": "node index.js",
+    "test": "mocha",
     "dev_zero": "echo [] > .\\cache\\guilds.json && node index.js"
   },
   "repository": {
@@ -52,5 +53,9 @@
     "ytdl-core": "^4.11.0",
     "ytdl-core-discord": "^1.2.5",
     "ytt": "^2.1.2"
+  },
+  "devDependencies": {
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0"
   }
 }
