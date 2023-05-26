@@ -4,7 +4,7 @@ module.exports = {
     aliases: ['unpause'],
     cooldown: 10,
     description: "Spiel den Track weiter, wenn er pausiert ist",
-    async execute(message) {
+    async execute(message, updatePlayingMessage = true) {
         if (message.guild.nowPlaying) {
             await message.react('🚫')
         }
@@ -16,8 +16,11 @@ module.exports = {
             await message.react("▶️")
             message.guild.dispatcher.resume()
             message.guild.me.setNickname(`🔊 ${message.client.user.username}`);
-            const PlayingMessageJS = require('../util/playingMessage')
-            await PlayingMessageJS.update(message)
+            
+            if (updatePlayingMessage) {
+                const PlayingMessageJS = require('../util/playingMessage')
+                await PlayingMessageJS.update(message)
+            }
         }
     }
 }
