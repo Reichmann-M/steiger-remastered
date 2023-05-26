@@ -1,4 +1,4 @@
-module.exports.awaitMessage = async (message) => {
+module.exports.awaitMessage = (message) => {
     const { channel } = message.member.voice
 
     if (!channel) {
@@ -13,7 +13,7 @@ module.exports.awaitMessage = async (message) => {
     return true;
 }
 
-module.exports.awaitReaction = async (member, message) => {
+module.exports.awaitReaction = (member, message) => {
     const { channel } = member.voice
 
     if (!channel) {
