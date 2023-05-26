@@ -4,22 +4,22 @@ module.exports = {
     aliases: ['break'],
     cooldown: 10,
     description: "Pausiere den derzeitigen Track",
-    async execute(message, updatePlayingMessage = true) {
+    execute(message, updatePlayingMessage = true) {
         if (message.guild.nowPlaying == false) {
-            await message.react('🚫')
+            return message.react('🚫')
         }
         else {
-            if (!(await canModifyQueueJS.awaitMessage(message))) {
+            if (!(canModifyQueueJS.awaitMessage(message))) {
                 return;
             }
             message.guild.nowPlaying = false
-            await message.react("⏸️")
+            message.react("⏸️")
             message.guild.dispatcher.pause(true)
             message.guild.me.setNickname(`⏸️ ${message.client.user.username}`);
             
             if (updatePlayingMessage) {
                 const PlayingMessageJS = require('../util/playingMessage')
-                await PlayingMessageJS.update(message)
+                PlayingMessageJS.update(message)
             }
         }
     }
