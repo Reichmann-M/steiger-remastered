@@ -4,25 +4,25 @@ module.exports = {
     aliases: ['looping'],
     cooldown: 10,
     description: "Erstelle eine Endlosschleife des derzeit laufenden Tracks",
-    async execute(message, updatePlayingMessage = true) {
+    execute(message, updatePlayingMessage = true) {
         if (message.guild.queue.length == 0) {
-            await message.react("🚫")
+            return message.react("🚫")
         } else {
-            if (!(await canModifyQueueJS.awaitMessage(message))) {
+            if (!(canModifyQueueJS.awaitMessage(message))) {
                 return;
             }
             if (message.guild.isLooped) {
                 message.guild.isLooped = false;
-                await message.react("🚫")
-                await message.react("🔂")
+                message.react("🚫")
+                message.react("🔂")
             } else {
                 message.guild.isLooped = true;
-                await message.react("🔂")
+                message.react("🔂")
             }
 
             if (updatePlayingMessage) {
                 const PlayingMessageJS = require('../util/playingMessage')
-                await PlayingMessageJS.update(message)
+                PlayingMessageJS.update(message)
             }
         }
     }
