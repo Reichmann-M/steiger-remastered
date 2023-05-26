@@ -12,8 +12,6 @@ const guildRaw = {
     queue: []
 }
 
-const trackItemRaw = {}
-
 const messageRaw = {
     client: {
         color: ''
@@ -38,11 +36,12 @@ const messageRaw = {
 
 
 module.exports.mockGuildWithEmptyQueue = () => {
-    return guildRaw;
+    const guild = JSON.parse(JSON.stringify(guildRaw));
+    return guild;
 }
 
 module.exports.mockGuildWithFilledQueue = () => {
-    const guild = guildRaw;
+    const guild = JSON.parse(JSON.stringify(guildRaw));
     for (let i = 0; i < 5; i++) {
         guild.queue.push(this.mockYoutubeVideo())
     }
@@ -58,6 +57,19 @@ module.exports.mockYoutubeVideo = (id = this.generateRandomNumberString(5)) => {
         title: "You'll only find out by clicking the link",
         duration: 999,
         thumbnail: JSON.parse(fs.readFileSync('config.json')).SERVICE_LOGO_LINKS.youtube,
+        author: this.generateRandomNumberString(18),
+        failedTimes: 0
+    }
+}
+
+module.exports.mockSoundcloudTrack = (id = this.generateRandomNumberString(5)) => {
+    return {
+        id: id,
+        type: 'Soundcloud',
+        playLink: 'https://soundcloud.com/jahseh-onfroy/bad-vibes-forever-feat-pnb-rock-trippie-redd',
+        title: 'bad vibes forever...',
+        duration: 150,
+        thumbnail: JSON.parse(fs.readFileSync('config.json')).SERVICE_LOGO_LINKS.soundcloud,
         author: this.generateRandomNumberString(18),
         failedTimes: 0
     }

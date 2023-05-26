@@ -5,7 +5,7 @@ const {
     MessageEmbed
 } = require('discord.js');
 
-module.exports.handlePlaylist = async function (guild, playlistItems = undefined, isShufflePlay = false) {
+module.exports.handlePlaylist = function (guild, playlistItems = undefined, isShufflePlay = false) {
     isShufflePlay ? playlistItems = playlistItems.sort(() => Math.random() - 0.5) : playlistItems = playlistItems
     
     playlistItems.forEach(item => {
@@ -13,7 +13,7 @@ module.exports.handlePlaylist = async function (guild, playlistItems = undefined
     });
 }
 
-module.exports.handleSingleTrack = async function (guild, trackItem = undefined, isPlayNext = false) {
+module.exports.handleSingleTrack = function (guild, trackItem = undefined, isPlayNext = false) {
     if (guild.queue.length == 0) {
         guild.queue.push(trackItem)
     } else {
@@ -27,7 +27,7 @@ module.exports.handleSingleTrack = async function (guild, trackItem = undefined,
 
 // Title Added Embeds
 
-module.exports.sendSingleTrackAddedEmbed = async function(message, title, streamLink) {
+module.exports.sendSingleTrackAddedEmbed = function(message, title, streamLink) {
     if (message.guild.queue.length > 1) {
         const titleAddedEmbed = new MessageEmbed({
             color: message.client.color,
