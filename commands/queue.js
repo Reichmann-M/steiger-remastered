@@ -4,7 +4,7 @@ module.exports = {
     aliases: ['q'],
     cooldown: 5,
     description: "Lasse Dir alle Tracks in der Warteschlange anzeigen",
-    async execute(message) {
+    execute(message) {
         // console.log(message.guild.queue) // remove for production
 
         const queue = message.guild.queue
