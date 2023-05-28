@@ -104,9 +104,9 @@ module.exports.mockMessageWithNotPlaying = () => {
     return message;
 }
 
-module.exports.mockYoutubeVideo = (id = this.generateRandomNumberString(5)) => {
+module.exports.mockYoutubeVideo = (id) => {
     return {
-        id: id,
+        id: id ? id : this.generateRandomNumberString(5),
         type: 'YoutubeVideo',
         playLink: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
         title: "You'll only find out by clicking the link",

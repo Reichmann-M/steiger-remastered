@@ -49,9 +49,9 @@ module.exports.mockGuildWithFilledQueue = () => {
 }
 
 
-module.exports.mockYoutubeVideo = (id = this.generateRandomNumberString(5)) => {
+module.exports.mockYoutubeVideo = (id) => {
     return {
-        id: id,
+        id: id ? id : this.generateRandomNumberString(5),
         type: 'YoutubeVideo',
         playLink: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
         title: "You'll only find out by clicking the link",
@@ -62,9 +62,9 @@ module.exports.mockYoutubeVideo = (id = this.generateRandomNumberString(5)) => {
     }
 }
 
-module.exports.mockSoundcloudTrack = (id = this.generateRandomNumberString(5)) => {
+module.exports.mockSoundcloudTrack = (id) => {
     return {
-        id: id,
+        id: id ? id : this.generateRandomNumberString(5),
         type: 'Soundcloud',
         playLink: 'https://soundcloud.com/jahseh-onfroy/bad-vibes-forever-feat-pnb-rock-trippie-redd',
         title: 'bad vibes forever...',
