@@ -1,4 +1,5 @@
 const fs = require('fs')
+const justclone = require('just-clone');
 module.exports.generateRandomNumberString = (length) => {
     let number = '';
     for (let i = 0; i < length; i++) {
@@ -57,7 +58,7 @@ const messageRaw = {
 }
 
 module.exports.mockMessageWithFilledQueue = (queueSize = 4) => {
-    const message = JSON.parse(JSON.stringify(message))
+    const message = justclone(messageRaw)
     message.author.id = this.generateRandomNumberString(18);
     for (let i = 0; i < queueSize; i++) {
         message.guild.queue.push(this.mockYoutubeVideo())
@@ -72,8 +73,19 @@ module.exports.mockMessageWithFilledQueue = (queueSize = 4) => {
     return message;
 }
 
+module.exports.mockMessageWithUserNotInSameVoiceChannel = (queueSize = 4) => {
+    const message = justclone(messageRaw)
+    message.author.id = this.generateRandomNumberString(18);
+    for (let i = 0; i < queueSize; i++) {
+        message.guild.queue.push(this.mockYoutubeVideo())
+    }
+    message.guild.me.voice.channel = '6549387435047263894';
+    message.member.voice.channel = '1105840092242784266';
+    return message;
+}
+
 module.exports.mockMessageWithEmptyQueue = () => {
-    const message = {...messageRaw}
+    const message = justclone(messageRaw)
     message.author.id = this.generateRandomNumberString(18);
     message.guild.queue = []
     message.guild.isLooped = false;
@@ -86,9 +98,9 @@ module.exports.mockMessageWithEmptyQueue = () => {
     return message;
 }
 
-module.exports.mockYoutubeVideo = (id = this.generateRandomNumberString(5)) => {
+module.exports.mockYoutubeVideo = (id) => {
     return {
-        id: id,
+        id: id ? id : this.generateRandomNumberString(5),
         type: 'YoutubeVideo',
         playLink: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
         title: "You'll only find out by clicking the link",
