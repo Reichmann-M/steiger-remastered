@@ -1,3 +1,4 @@
+const justclone = require('just-clone');
 module.exports.generateRandomNumberString = (length) => {
     let number = '';
     for (let i = 0; i < length; i++) {

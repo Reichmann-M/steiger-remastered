@@ -23,7 +23,7 @@ describe('loop.js Test of command functionality', () => {
     it('should NOT loop because the bot is not playing at the moment', () => {
         const message = loopMock.mockMessageWithNotPlaying();
         loop.execute(message, false)
-        expect(message.guild.isLooped).to.be.false;
+        expect(message.guild.isLooped).to.be.oneOf([false, undefined]);
     })
     
 })

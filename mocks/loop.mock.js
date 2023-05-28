@@ -1,4 +1,5 @@
 const fs = require('fs')
+const justclone = require('just-clone');
 module.exports.generateRandomNumberString = (length) => {
     let number = '';
     for (let i = 0; i < length; i++) {
@@ -98,6 +99,7 @@ module.exports.mockMessageWithNotPlaying = () => {
     message.guild.queue = []
     message.guild.nowPlaying = false;
     message.guild.dispatcher.paused = null;
+    message.guild.isLooped = false;
     const randomVoiceChannelID = this.generateRandomNumberString(19)
     message.guild.me.voice.channel = randomVoiceChannelID;
     message.member.voice.channel = randomVoiceChannelID;

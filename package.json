@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test-mocha": "mocha",
-    "test-jest": "jest",
+    "test": "jest",
     "dev_zero": "echo [] > .\\cache\\guilds.json && node index.js"
   },
   "repository": {
