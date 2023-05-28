@@ -30,7 +30,7 @@ const messageRaw = {
 }
 
 module.exports.mockMessageByBotOwner = () => {
-    const message = {...messageRaw}
+    const message = justclone(messageRaw)
     const randomUserID = this.generateRandomNumberString(18)
     message.author.id = randomUserID;
     message.client.ownerID = randomUserID;
@@ -38,7 +38,7 @@ module.exports.mockMessageByBotOwner = () => {
 }
 
 module.exports.mockMessageByNotOwner = () => {
-    const message = {...messageRaw}
+    const message = justclone(messageRaw)
     message.author.id = '6549387435047263894';
     message.client.ownerID = '1105840092242784266';
     return message

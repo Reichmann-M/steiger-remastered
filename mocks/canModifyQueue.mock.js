@@ -40,16 +40,16 @@ const memberRaw  = {
 
 
 module.exports.mockUserNotInVoiceChannel = () => {
-    const message = messageRaw;
-    const member = memberRaw;
+    const message = justclone(messageRaw);
+    const member = justclone(memberRaw);
     message.member.voice.channel = null;
     member.voice.channel = null;
     return [message, member];
 }
 
 module.exports.mockUserNotInSameVoiceChannel = () => {
-    const message = messageRaw;
-    const member = memberRaw;
+    const message = justclone(messageRaw);
+    const member = justclone(memberRaw);
     const memberVoiceChannelID = '6549387435047263894';
     message.member.voice.channel = memberVoiceChannelID;
     message.guild.me.voice.channel = '1105840092242784266';
@@ -58,8 +58,8 @@ module.exports.mockUserNotInSameVoiceChannel = () => {
 }
 
 module.exports.mockUserInSameVoiceChannel = () => {
-    const message = messageRaw;
-    const member = memberRaw;
+    const message = justclone(messageRaw)
+    const member = justclone(memberRaw);
     const randomVoiceChannelID = generateRandomNumberString(19)
     message.member.voice.channel = randomVoiceChannelID;
     message.guild.me.voice.channel = randomVoiceChannelID;

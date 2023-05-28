@@ -36,12 +36,12 @@ const messageRaw = {
 
 
 module.exports.mockGuildWithEmptyQueue = () => {
-    const guild = JSON.parse(JSON.stringify(guildRaw));
+    const guild = justclone(guildRaw)
     return guild;
 }
 
 module.exports.mockGuildWithFilledQueue = () => {
-    const guild = JSON.parse(JSON.stringify(guildRaw));
+    const guild = justclone(guildRaw)
     for (let i = 0; i < 5; i++) {
         guild.queue.push(this.mockYoutubeVideo())
     }

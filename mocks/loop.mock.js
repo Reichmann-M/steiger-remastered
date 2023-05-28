@@ -55,7 +55,7 @@ const messageRaw = {
 }
 
 module.exports.mockMessageWithPlaying = () => {
-    const message = {...messageRaw}
+    const message = justclone(messageRaw)
     message.author.id = this.generateRandomNumberString(18);
     message.guild.queue = Array(this.mockYoutubeVideo(), this.mockYoutubeVideo(), this.mockYoutubeVideo(), this.mockYoutubeVideo())
     message.guild.isLooped = false;
@@ -68,7 +68,7 @@ module.exports.mockMessageWithPlaying = () => {
 }
 
 module.exports.mockMessageWithPlayingAndLooped = () => {
-    const message = {...messageRaw}
+    const message = justclone(messageRaw)
     message.author.id = this.generateRandomNumberString(18);
     message.guild.queue = Array(this.mockYoutubeVideo(), this.mockYoutubeVideo(), this.mockYoutubeVideo(), this.mockYoutubeVideo())
     message.guild.isLooped = true;
@@ -81,7 +81,7 @@ module.exports.mockMessageWithPlayingAndLooped = () => {
 }
 
 module.exports.mockMessageWithUserNotInSameVoiceChannel = () => {
-    const message = {...messageRaw}
+    const message = justclone(messageRaw)
     message.author.id = this.generateRandomNumberString(18);
     message.guild.queue = Array(this.mockYoutubeVideo(), this.mockYoutubeVideo(), this.mockYoutubeVideo(), this.mockYoutubeVideo())
     message.guild.isLooped = false;
@@ -93,7 +93,7 @@ module.exports.mockMessageWithUserNotInSameVoiceChannel = () => {
 }
 
 module.exports.mockMessageWithNotPlaying = () => {
-    const message = {...messageRaw}
+    const message = justclone(messageRaw)
     message.author.id = this.generateRandomNumberString(18);
     message.guild.queue = []
     message.guild.nowPlaying = false;

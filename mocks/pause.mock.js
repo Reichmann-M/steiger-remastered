@@ -53,7 +53,7 @@ const messageRaw = {
 }
 
 module.exports.mockMessageWithPlaying = () => {
-    const message = {...messageRaw}
+    const message = justclone(messageRaw)
     message.author.id = this.generateRandomNumberString(18);
     message.guild.nowPlaying = true;
     message.guild.dispatcher.paused = false;
@@ -64,7 +64,7 @@ module.exports.mockMessageWithPlaying = () => {
 }
 
 module.exports.mockMessageWithUserNotInSameVoiceChannel = () => {
-    const message = {...messageRaw}
+    const message = justclone(messageRaw)
     message.author.id = this.generateRandomNumberString(18);
     message.guild.nowPlaying = true;
     message.guild.dispatcher.paused = false;
@@ -74,7 +74,7 @@ module.exports.mockMessageWithUserNotInSameVoiceChannel = () => {
 }
 
 module.exports.mockMessageWithNotPlaying = () => {
-    const message = {...messageRaw}
+    const message = justclone(messageRaw)
     message.author.id = this.generateRandomNumberString(18);
     message.guild.nowPlaying = false;
     message.guild.dispatcher.paused = null;
