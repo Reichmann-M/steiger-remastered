@@ -1,0 +1,16 @@
+{
+    "OWNERID":"328213965299515393",
+    "TOKEN":"<ENTER-TOKEN>",
+    "PREFIX": ". , ? _ +",
+    "COLOR": "#ffde5c #ff4747 #212121 #fff8db #b8f1ff",
+    "SERVICE_LOGO_LINKS":
+        {
+            "radionet": "https://imgur.com/R1coQzq.png",
+            "spotify": "https://imgur.com/ikLc5vN.png",
+            "twitch": "https://imgur.com/kBrcLb0.png",
+            "webstreams": "https://imgur.com/q7oCm92.png",
+            "youtube": "https://imgur.com/UUi1aea.png",
+            "vimeo": "https://i.imgur.com/DqdCVcj.png",
+            "soundcloud": "https://i.imgur.com/6PpJgCX.png"
+        }
+}
