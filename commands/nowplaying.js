@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js');
-const util = require('util')
+const UtilMethods = require('../util/UtilMethods.js')
 module.exports = {
     name: "nowplaying",
     aliases: ['np'],
@@ -11,59 +11,45 @@ module.exports = {
         } else {
             var songDuration = message.guild.queue[0].duration
             const alreadyPlayedSongTime = message.guild.dispatcher.streamTime / 1000;
-
-            const tileCount = 40; // frei anpassbar
-            var sPlayBar = ''
-            var sPlayTime = ''
-            if (songDuration != '?') {
-                const percentPlayed = Math.round(alreadyPlayedSongTime / songDuration * 100);
-
-                const howManyTillZero = percentPlayed - 1;
-                const howManyTillHundred = 100 - percentPlayed;
-
-                const preTileCount = Math.round(howManyTillZero / 100 * tileCount)
-                const pastTileCount = Math.round(howManyTillHundred / 100 * tileCount)
-
-                if (preTileCount+pastTileCount > tileCount) {
-                    preTileCount--;
-                }
-
-                for (let i = 0; i < preTileCount; i++) {
-                    sPlayBar = sPlayBar + '▬';
-                }
-                sPlayBar = sPlayBar + '🔵'
-                for (let i = 0; i < pastTileCount; i++) {
-                    sPlayBar = sPlayBar + '▬';
-                }
-                sPlayTime = `${this.getFormattedSeconds(Math.round(alreadyPlayedSongTime))} / ${this.getFormattedSeconds(songDuration)}`
-            } else {
-                sPlayBar = '🔴▶️ LIVE seit:'
-                sPlayTime = `${this.getFormattedSeconds(Math.round(alreadyPlayedSongTime))}`
-            }
             message.reply(new MessageEmbed({
                 color: message.client.color,
                 description: `[${message.guild.queue[0].title}](${message.guild.queue[0].playLink}) [<@${message.guild.queue[0].author}>]`,
                 footer: {
-                    text: `${sPlayBar} ${sPlayTime}`
+                    text: generateNowplayingFooter(songDuration, alreadyPlayedSongTime)
                 }
             }))
         }
-    },
-    getFormattedSeconds(normalSeconds) {
-        var sFormatted = ''
-        if (normalSeconds >= 3600) {
-            var hours = Math.round(normalSeconds / 3600)
-            normalSeconds = normalSeconds - (hours * 3600)
-            sFormatted = `${hours}h`
+    }
+}
+
+const generateNowplayingFooter = (songDuration, alreadyPlayedSongTime) => {
+    const tileCount = 40;
+    var sPlayBar = ''
+    var sPlayTime = ''
+    if (songDuration != '?') {
+        const percentPlayed = Math.round(alreadyPlayedSongTime / songDuration * 100);
+
+        const howManyTillZero = percentPlayed - 1;
+        const howManyTillHundred = 100 - percentPlayed;
+
+        const preTileCount = Math.round(howManyTillZero / 100 * tileCount)
+        const pastTileCount = Math.round(howManyTillHundred / 100 * tileCount)
+
+        if (preTileCount + pastTileCount > tileCount) {
+            preTileCount--;
         }
-        if (normalSeconds >= 60) {
-            var minutes = Math.round(normalSeconds / 60)
-            normalSeconds = normalSeconds - (minutes * 60)
-            sFormatted = `${sFormatted} ${minutes}m`
+
+        for (let i = 0; i < preTileCount; i++) {
+            sPlayBar = sPlayBar + '▬';
         }
-        if (normalSeconds > 0) {
-            sFormatted = `${sFormatted} ${normalSeconds}s`
+        sPlayBar = sPlayBar + '🔵'
+        for (let i = 0; i < pastTileCount; i++) {
+            sPlayBar = sPlayBar + '▬';
         }
-        return sFormatted;
-    }    
+        sPlayTime = `${UtilMethods.getFormattedSeconds(Math.round(alreadyPlayedSongTime))} / ${UtilMethods.getFormattedSeconds(songDuration)}`
+    } else {
+        sPlayBar = '🔴▶️ LIVE seit:'
+        sPlayTime = `${UtilMethods.getFormattedSeconds(Math.round(alreadyPlayedSongTime))}`
+    }
+    return `${sPlayBar} ${sPlayTime}`;
 }
