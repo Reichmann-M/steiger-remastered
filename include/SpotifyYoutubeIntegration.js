@@ -72,12 +72,12 @@ module.exports.handle = async (message, spotify_item) => {
     // Special types like remixes
     if (title_copy.toLowerCase().includes('remix') || title_copy.toLowerCase().includes('edit') || title_copy.toLowerCase().includes('- live') || title_copy.toLowerCase().includes('nightcore')) {
         // normal youtube scraping
-        
+
         var ytResults = await failedFetchAutoRetry('youtube.search-video', `${title_copy} ${sArtists}`)
 
         if (ytResults == null || ytResults.videos.length == 0) {
             // console.log('no remix youtube search results (1)') // remove for production
-            
+
             ytResults = await failedFetchAutoRetry('youtube.search-video', `${title_copy}`)
 
             if (ytResults == null || ytResults.videos.length == 0) {
@@ -110,9 +110,12 @@ module.exports.handle = async (message, spotify_item) => {
             author: message.author.id,
             failedTimes: 0
         }
-    } 
+    }
     // Normal types
     else {
+        // REFACTORING: Switch Statements -> eig: Replace Conditional with Polymorphism
+
+
         // Deletion of extra unneccessary stuff
 
         // - Single, Extended, 1984 Version...
@@ -151,11 +154,11 @@ module.exports.handle = async (message, spotify_item) => {
         if (title_copy.match(/^.+ -.*[r,R]emastere?d?.*$/)) {
             title_copy = title_copy.replace(/ -.*[r,R]emastere?d?.*/, '')
         }
-        
-        
+
+
         // Youtube Music API
         const music = await failedFetchAutoRetry('music', `${title_copy} ${sArtists}`)
-                
+
         var found = false;
         if (music != undefined) {
             if (music.length > 0) {
@@ -179,17 +182,17 @@ module.exports.handle = async (message, spotify_item) => {
                     return true;
                 });
             }
-        } 
-    
+        }
+
         if (found) {
             // console.log('found in ytmusic') // remove for production
             return message.guild.queue[0] = item_construct
         }
 
         // No YT Music Results -> Try: Normal Youtube Scraping
-        
+
         var ytResults = await failedFetchAutoRetry('youtube.search-video', `${title_copy} ${sArtists}`)
-        
+
         if (ytResults == null || ytResults.videos.length == 0) {
             // console.log('no non-remix youtube search results (1)') // remove for production
             console.log(`[🎩${message.client.bot_config_number}]❗ Unable to play track |${title_copy}|`)
@@ -200,16 +203,10 @@ module.exports.handle = async (message, spotify_item) => {
             return message.guild.queue[0] = null
         }
 
+        // REFACTORING: Duplicated Code -> Extract Method
         ytResults.videos.every(video => {
-            if ((video.title.toLowerCase().includes('live') && title_copy.toLowerCase().includes('live') == false) ||
-                (video.title.toLowerCase().includes('nightcore') && title_copy.toLowerCase().includes('nightcore') == false) ||
-                (video.title.toLowerCase().includes('earrape') && title_copy.toLowerCase().includes('earrape') == false) ||
-                (video.title.toLowerCase().includes('cover') && title_copy.toLowerCase().includes('cover') == false) ||
-                (video.title.toLowerCase().includes('remix') && title_copy.toLowerCase().includes('remix') == false) ||
-                (video.title.toLowerCase().includes('edit') && title_copy.toLowerCase().includes('edit') == false) ||
-                (video.title.toLowerCase().includes('slow') && title_copy.toLowerCase().includes('slow') == false) ||
-                (video.title.toLowerCase().includes('track by track') && title_copy.toLowerCase().includes('track by track') == false)) {
-                return true;
+            if (isSpecialVersion(video)) {
+                return true
             } else {
                 if (video.title.toLowerCase().includes(title_copy.toLowerCase())) {
                     item_construct = {
@@ -240,4 +237,16 @@ module.exports.handle = async (message, spotify_item) => {
             return message.guild.queue[0] = null
         }
     }
+}
+
+const isSpecialVersion = (foundVideo, actualTitle) => {
+    const specialVersionIdentifiers = ['live', 'nightcore', 'earrape', 'cover', 'remix', 'edit', 'slow', 'track by track'];
+    let returnValue = false;
+    for (let i = 0; i < specialVersionIdentifiers.length; i++) {
+        if (foundVideo.title.toLowerCase().includes(specialVersionIdentifiers[i]) && !actualTitle.toLowerCase().includes(specialVersionIdentifiers[i])) { 
+            returnValue = true;
+            break; 
+        };
+    }
+    return returnValue;
 }
