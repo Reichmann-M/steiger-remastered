@@ -113,48 +113,8 @@ module.exports.handle = async (message, spotify_item) => {
     }
     // Normal types
     else {
-        // REFACTORING: Switch Statements -> eig: Replace Conditional with Polymorphism
-
-
-        // Deletion of extra unneccessary stuff
-
-        // - Single, Extended, 1984 Version...
-        if (title_copy.match(/^.+ - .+[v,V]ersion.*$/)) {
-            title_copy = title_copy.replace(/ - .+[v,V]ersion.*/, '')
-        }
-        // - Stereo Mix || - Mono Mix
-        if (title_copy.match(/^.+ - .+ [m,M]ix.*$/)) {
-            title_copy = title_copy.replace(/ - .+ [m,M]ix.*/, '')
-        }
-        //  - x Edition
-        if (title_copy.match(/^.+ - .+ [e,E]dition.*$/)) {
-            title_copy = title_copy.replace(/ - .+ [e,E]dition.*/, '')
-        }
-        //  - Bonus Track
-        if (title_copy.match(/^.+ - Bonus Track$/)) {
-            title_copy = title_copy.replace(/- Bonus Track/, '')
-        }
-        // (feat. x)
-        if (title_copy.match(/^.+ \(feat\. .+\)$/)) {
-            title_copy = title_copy.replace(/ \(feat\. .+\)/, '')
-        }
-        // [feat.]
-        if (title_copy.match(/^.+ \[feat\. .+\]$/)) {
-            title_copy = title_copy.replace(/^.+ \[feat\. .+\]$/, '')
-        }
-        // - feat. x
-        if (title_copy.match(/^.+ - feat\. .+$/)) {
-            title_copy = title_copy.replace(/ - feat\. .+/, '')
-        }
-        // (with x) 
-        if (title_copy.match(/^.+ \(with .+\)$/)) {
-            title_copy = title_copy.replace(/ \(with .+\)/, '')
-        }
-        // - Remaster, Remastered
-        if (title_copy.match(/^.+ -.*[r,R]emastere?d?.*$/)) {
-            title_copy = title_copy.replace(/ -.*[r,R]emastere?d?.*/, '')
-        }
-
+        // Remove unnecessary Title Extensions (like "feat.")
+        title_copy = getReformattedTitle(title_copy)
 
         // Youtube Music API
         const music = await failedFetchAutoRetry('music', `${title_copy} ${sArtists}`)
@@ -239,14 +199,24 @@ module.exports.handle = async (message, spotify_item) => {
     }
 }
 
+//TODO: write unit test
 const isSpecialVersion = (foundVideo, actualTitle) => {
     const specialVersionIdentifiers = ['live', 'nightcore', 'earrape', 'cover', 'remix', 'edit', 'slow', 'track by track'];
     let returnValue = false;
     for (let i = 0; i < specialVersionIdentifiers.length; i++) {
-        if (foundVideo.title.toLowerCase().includes(specialVersionIdentifiers[i]) && !actualTitle.toLowerCase().includes(specialVersionIdentifiers[i])) { 
+        if (foundVideo.title.toLowerCase().includes(specialVersionIdentifiers[i]) && !actualTitle.toLowerCase().includes(specialVersionIdentifiers[i])) {
             returnValue = true;
-            break; 
+            break;
         };
     }
     return returnValue;
+}
+
+//TODO: write unit test
+const getReformattedTitle = (title) => {
+    const unwantendExtensions = [' - .+[v,V]ersion.*', ' - .+ [m,M]ix.*', ' - .+ [e,E]dition.*', ' - Bonus Track', ' \(feat\. .+\)', ' \[feat\. .+\]', ' - feat\. .+', ' \(with .+\)', ' -.*[r,R]emastere?d?.*']
+    for (let i = 0; i < unwantendExtensions.length; i++) {
+        if (title.match('^.+' + new RegExp(unwantendExtensions[i]).source + '$')) title = title.replace(new RegExp(unwantendExtensions[i]), '')
+    }
+    return title;
 }
